@@ -1,8 +1,9 @@
 'use client'
 
-import { Card } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
+import { Card } from '../components/ui/card'
+import { Badge } from '../components/ui/badge'
 import type { Bet } from './RouletteGame'
+import { cn, formatCurrency } from "../lib/utils"
 
 interface BettingTableProps {
   onPlaceBet: (bet: Omit<Bet, 'amount'>) => void
@@ -283,7 +284,7 @@ export default function BettingTable({ onPlaceBet, currentBets, selectedChip, ca
               {currentBets.map((bet) => (
                 <div key={`${bet.position}-${bet.type}-${bet.amount}`} className="bg-blue-800/50 p-2 rounded">
                   <span className="font-semibold">{bet.type.toUpperCase()}</span>
-                  <span className="text-yellow-400 ml-2">${bet.amount}</span>
+                  <span className="text-yellow-400 ml-2">{formatCurrency(bet.amount)}</span>
                 </div>
               ))}
             </div>

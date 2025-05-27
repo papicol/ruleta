@@ -8,6 +8,25 @@ module.exports = {
   ],
   theme: {
     extend: {
+      animation: {
+        'rotate': 'rotate 20s linear infinite',
+        'shadow-glow': 'shadow-glow 2s ease-in-out infinite',
+        'bounce-subtle': 'bounce 0.5s ease-in-out',
+        'spin-slow': 'spin 3s linear infinite',
+      },
+      keyframes: {
+        'shadow-glow': {
+          '0%, 100%': {
+            'box-shadow': '0 0 5px rgba(250, 204, 21, 0.2), 0 0 20px rgba(250, 204, 21, 0.4), 0 0 60px rgba(250, 204, 21, 0.6)'
+          },
+          '50%': {
+            'box-shadow': '0 0 10px rgba(250, 204, 21, 0.4), 0 0 40px rgba(250, 204, 21, 0.6), 0 0 80px rgba(250, 204, 21, 0.8)'
+          }
+        }
+      },
+      boxShadow: {
+        'glow': '0 0 10px rgba(250, 204, 21, 0.4), 0 0 40px rgba(250, 204, 21, 0.6)',
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

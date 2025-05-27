@@ -9,6 +9,7 @@ import BettingTable from './BettingTable'
 import ChipSelection from './ChipSelection'
 import GameStats from './GameStats'
 import { toast } from 'sonner'
+import { cn, formatCurrency } from "@/lib/utils"
 
 export interface Bet {
   type: string
@@ -145,18 +146,18 @@ export default function RouletteGame() {
   }
 
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
+    <div className="max-w-[1400px] w-full mx-auto grid grid-cols-1 xl:grid-cols-4 gap-4 md:gap-6">
       {/* Panel izquierdo - Stats y controles */}
-      <div className="xl:col-span-1 space-y-4">
-        <Card className="p-6 bg-gray-900/50 border-gray-700">
+      <div className="xl:col-span-1 space-y-4 order-2 xl:order-1">
+        <Card className="p-4 md:p-6 bg-gray-900/50 border-gray-700 backdrop-blur-sm">
           <div className="text-center space-y-4">
-            <div>
+            <div className="flex flex-col items-center">
               <p className="text-gray-400 text-sm">Saldo</p>
-              <p className="text-3xl font-bold text-green-400">${(gameState.balance || 0).toLocaleString()}</p>
+              <p className="text-3xl font-bold text-green-400">{formatCurrency(gameState.balance || 0)}</p>
             </div>
 
             {canBet && !gameState.isSpinning && (
-              <div>
+              <div className="flex flex-col items-center">
                 <p className="text-gray-400 text-sm">Tiempo de apuesta</p>
                 <p className="text-2xl font-bold text-yellow-400">{bettingTime}s</p>
               </div>
@@ -192,24 +193,39 @@ export default function RouletteGame() {
           </div>
         </Card>
 
-        <ChipSelection selectedChip={selectedChip} onChipSelect={setSelectedChip} />
-        <GameStats lastNumbers={gameState.lastNumbers} />
+        <div className="grid grid-cols-1 gap-4">
+          <Card className="p-4 md:p-6 bg-gray-900/50 border-gray-700 backdrop-blur-sm">
+            <ChipSelection selectedChip={selectedChip} onChipSelect={setSelectedChip} />
+          </Card>
+          
+          <Card className="p-4 md:p-6 bg-gray-900/50 border-gray-700 backdrop-blur-sm">
+            <GameStats lastNumbers={gameState.lastNumbers} />
+          </Card>
+        </div>
       </div>
 
       {/* Panel central - Ruleta y mesa */}
-      <div className="xl:col-span-3 space-y-6">
-        <RouletteWheel
-          isSpinning={gameState.isSpinning}
-          winningNumber={gameState.winningNumber}
-        />
+      <div className="xl:col-span-3 space-y-4 md:space-y-6 order-1 xl:order-2">
+        <div className="flex justify-center items-center">
+          <div className="w-full max-w-3xl">
+            <RouletteWheel
+              isSpinning={gameState.isSpinning}
+              winningNumber={gameState.winningNumber}
+            />
+          </div>
+        </div>
 
-        <BettingTable
-          onPlaceBet={placeBet}
-          currentBets={gameState.currentBets}
-          selectedChip={selectedChip}
-          canBet={canBet && !gameState.isSpinning}
-          winningNumber={gameState.winningNumber}
-        />
+        <div className="flex justify-center items-center">
+          <div className="w-full max-w-4xl bg-gray-900/50 backdrop-blur-sm rounded-lg p-4">
+            <BettingTable
+              onPlaceBet={placeBet}
+              currentBets={gameState.currentBets}
+              selectedChip={selectedChip}
+              canBet={canBet && !gameState.isSpinning}
+              winningNumber={gameState.winningNumber}
+            />
+          </div>
+        </div>
       </div>
     </div>
   )

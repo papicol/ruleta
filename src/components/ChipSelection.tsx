@@ -1,6 +1,7 @@
 'use client'
 
 import { Card } from '@/components/ui/card'
+import { formatCurrency } from '@/lib/utils'
 
 interface ChipSelectionProps {
   selectedChip: number
@@ -42,8 +43,7 @@ export default function ChipSelection({ selectedChip, onChipSelect }: ChipSelect
 
             {/* Valor */}
             <div className="relative z-10 flex flex-col items-center justify-center h-full">
-              <span className="text-xs opacity-80">$</span>
-              <span className="font-bold">{chip.value.toLocaleString()}</span>
+              <span className="font-bold">{formatCurrency(chip.value)}</span>
             </div>
 
             {/* Efecto de brillo */}

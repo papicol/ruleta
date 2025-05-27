@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 @layer base {
   :root {
@@ -61,10 +61,13 @@
 
 @layer base {
   * {
-    @apply border-border;
+    border-color: hsl(var(--border));
+    border-width: 1px;
+    border-style: solid;
   }
   body {
-    @apply bg-background text-foreground;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
   }
 }
 
@@ -165,6 +168,32 @@
   }
 }
 
+/* Animaciones de la ruleta */
+.roulette-ball {
+  transition: transform 0.1s linear;
+  will-change: transform;
+}
+
+.roulette-wheel-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.roulette-wheel-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 300ms, transform 300ms;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.bounce-effect {
+  animation: bounce 0.5s ease-in-out;
+}
+
 /* Utility classes */
 .clip-path-triangle {
   clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
@@ -213,4 +242,44 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.5);
+}
+
+@keyframes wheelSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ballBounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.wheel-spin {
+  animation: wheelSpin 20s linear infinite;
+}
+
+.ball-bounce {
+  animation: ballBounce 0.3s ease-in-out;
+}
+
+.roulette-container {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.wheel-tilt {
+  transform: rotateX(20deg);
+  transition: transform 0.3s ease;
+}
+
+.wheel-tilt:hover {
+  transform: rotateX(25deg) scale(1.02);
 }

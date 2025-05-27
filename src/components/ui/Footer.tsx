@@ -1,6 +1,6 @@
 'use client'
 
-export default function Footer() {
+export function Footer() {
   return (
     <footer className="w-full py-4 mt-8 bg-gray-900/50 border-t border-gray-800">
       <div className="container mx-auto px-4 flex items-center justify-between">
