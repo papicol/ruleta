@@ -145,6 +145,20 @@ export default function RouletteGame() {
     toast.info("Apuestas eliminadas")
   }
 
+  // Nuevo: función para reiniciar saldo
+  const resetBalance = () => {
+    setGameState(prev => ({
+      ...prev,
+      balance: 10000,
+      currentBets: [],
+      isSpinning: false,
+      winningNumber: null
+    }))
+    setCanBet(true)
+    setBettingTime(30)
+    toast.info("Saldo recargado a $10,000")
+  }
+
   return (
     <div className="max-w-[1400px] w-full mx-auto grid grid-cols-1 xl:grid-cols-4 gap-4 md:gap-6">
       {/* Panel izquierdo - Stats y controles */}
@@ -156,7 +170,17 @@ export default function RouletteGame() {
               <p className="text-3xl font-bold text-green-400">{formatCurrency(gameState.balance || 0)}</p>
             </div>
 
-            {canBet && !gameState.isSpinning && (
+            {/* Mostrar mensaje y botón si el saldo es 0 */}
+            {gameState.balance === 0 && (
+              <div className="flex flex-col items-center space-y-2 mt-4">
+                <p className="text-red-400 font-bold text-lg">Sin saldo disponible</p>
+                <Button onClick={resetBalance} className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-2 rounded">
+                  Recargar saldo
+                </Button>
+              </div>
+            )}
+
+            {canBet && !gameState.isSpinning && gameState.balance > 0 && (
               <div className="flex flex-col items-center">
                 <p className="text-gray-400 text-sm">Tiempo de apuesta</p>
                 <p className="text-2xl font-bold text-yellow-400">{bettingTime}s</p>
@@ -166,7 +190,7 @@ export default function RouletteGame() {
             <div className="space-y-2">
               <Button
                 onClick={spinRoulette}
-                disabled={gameState.isSpinning || gameState.currentBets.length === 0}
+                disabled={gameState.isSpinning || gameState.currentBets.length === 0 || gameState.balance === 0}
                 className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3"
               >
                 {gameState.isSpinning ? 'GIRANDO...' : 'GIRAR RULETA'}
@@ -221,7 +245,7 @@ export default function RouletteGame() {
               onPlaceBet={placeBet}
               currentBets={gameState.currentBets}
               selectedChip={selectedChip}
-              canBet={canBet && !gameState.isSpinning}
+              canBet={canBet && !gameState.isSpinning && gameState.balance > 0}
               winningNumber={gameState.winningNumber}
             />
           </div>

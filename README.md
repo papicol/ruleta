@@ -1,6 +1,6 @@
 # Ruleta Europea Profesional
 
-## Papiweb Desarrollos Informáticos
+## <span style="color:#FFD700;font-weight:bold;text-shadow:0 0 10px #FFD700,0 0 20px #FFD700">Papiweb</span> Desarrollos Informáticos
 
 Aplicación de Ruleta Europea desarrollada con Next.js, React y TailwindCSS.
 
@@ -20,4 +20,4 @@ Aplicación de Ruleta Europea desarrollada con Next.js, React y TailwindCSS.
 - TypeScript
 
 ---
-© 2025 Papiweb Desarrollos Informáticos. Todos los derechos reservados.
+© 2025 <span style="color:#FFD700;font-weight:bold;text-shadow:0 0 10px #FFD700,0 0 20px #FFD700">Papiweb</span> Desarrollos Informáticos. Todos los derechos reservados.

@@ -281,8 +281,8 @@ export default function BettingTable({ onPlaceBet, currentBets, selectedChip, ca
           <div className="mt-4 p-3 bg-blue-900/30 rounded-lg">
             <p className="text-sm text-gray-300 mb-2">Apuestas activas:</p>
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 text-xs">
-              {currentBets.map((bet) => (
-                <div key={`${bet.position}-${bet.type}-${bet.amount}`} className="bg-blue-800/50 p-2 rounded">
+              {currentBets.map((bet, idx) => (
+                <div key={`${bet.position}-${bet.type}-${bet.amount}-${idx}`} className="bg-blue-800/50 p-2 rounded">
                   <span className="font-semibold">{bet.type.toUpperCase()}</span>
                   <span className="text-yellow-400 ml-2">{formatCurrency(bet.amount)}</span>
                 </div>
